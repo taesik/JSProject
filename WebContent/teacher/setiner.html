@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Insert title here</title>
+		<meta charset="utf-8" />
+		<!-- html4 : 파일의 인코딩 방식 지정 -->
+		<!--<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />-->
+
+		<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+		<!-- 브라우저의 호환성 보기 모드를 막고, 해당 브라우저에서 지원하는 가장 최신 버전의 방식으로 HTML 보여주도록 설정.-->
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+		<!--viewport : 화면에 보이는 영역을 제어하는 기술. width는 device-width로 설정(브라우저 너비를 장치 너비에 맞추어 표시). initial-scale는 초기비율(보이는 영역과 웹 페이지를 맞춤). user-scalable는 사용자가 화면축소를 하지 못하도록 설정.-->
+      			
+		<link rel="shortcut icon" href="../image/icon.png" />
+		<link rel="apple-touch-icon" href="../image/icon.png" />
+				
+		<!-- IE8 이하에서 HTML5를 인식시키기 위해 아래의 패스필터를 적용-->
+		<!--[if lt IE 9]>
+			<script src="../js/html5shiv.js"></script>
+		<![endif]-->
+		
+		<style type="text/css">
+			input[type ="text"]{border-width:0px; width:150px; height: 60px; font-size:20}
+		</style>
+		<script type="text/javascript">
+		var id;	
+			id = senInterval(flashText,1000);
+		}
+		function flashText() {
+			var element = documnet.getElementById("target");
+			element.style.color = (element.style.color == "red") ? "navy" :"red";
+			element.style.backgroundColor = (element.style.bakcgroundColor == "green")? "yellow" : "green";
+		}
+		function stopTextColor() {
+			clearInterval(id);
+		}
+		function today() {
+			 var now = new Date();
+			 var hours = now.getHours();
+			 var minutes = now.getMinutes();
+			 var seconds = now. getSeconds();
+			 
+			 var time = (hours >=12)? "오후" : "오전";
+			 time += ((hours>12)? hours-12:hours);
+			 time += ((minutes < 10 )? ":0" : ":") + minutes;
+			 time += ((seconds <10)? ":0" : ":") + seconds;
+			 
+			 documnet.getElementById("area").value =time;
+		}
+		function start_time() {
+			time_id = setinterval(today,1000);
+		}
+		function stop_time() {
+			clearInterval(time_id)
+			//document.getElemetById("area").value = "";
+		}
+		</script>
+		
+	</head>
+		<body onload="changeColor()">
+			<div id ="target">
+			 <p>This is a Text .</p>
+			</div>
+			<button type ="button" onclick="stopTextColor()"> 중지</button>
+			
+			<form name ="name">
+				<input type ="text" name -"txt" id = "area"/><br/>
+				<input type ="button" value ="시계동작" onclick="start_time()">%nbsp;&nbsp;
+				<input type="button" value = "시계중지" onclick="stop_time()">
+			</form>			
+		</body>
+	</html>

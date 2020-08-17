@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Insert title here</title>
+		<meta charset="utf-8" />
+		<!-- html4 : 파일의 인코딩 방식 지정 -->
+		<!--<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />-->
+
+		<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+		<!-- 브라우저의 호환성 보기 모드를 막고, 해당 브라우저에서 지원하는 가장 최신 버전의 방식으로 HTML 보여주도록 설정.-->
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+		<!--viewport : 화면에 보이는 영역을 제어하는 기술. width는 device-width로 설정(브라우저 너비를 장치 너비에 맞추어 표시). initial-scale는 초기비율(보이는 영역과 웹 페이지를 맞춤). user-scalable는 사용자가 화면축소를 하지 못하도록 설정.-->
+      			
+		<link rel="shortcut icon" href="../image/icon.png" />
+		<link rel="apple-touch-icon" href="../image/icon.png" />
+				
+		<!-- IE8 이하에서 HTML5를 인식시키기 위해 아래의 패스필터를 적용-->
+		<!--[if lt IE 9]>
+			<script src="../js/html5shiv.js"></script>
+		<![endif]-->
+		<script type="text/javascript" src = "../js/jquery-1.12.4.min.js"></script>
+		<script type="text/javascript">
+			$(function () {
+				
+				$("#emailAddress").change(function() {
+						$("#emailDomain").val($("select[name = 'emailAddress']").val());
+					});
+				$("#join").submit(function() {
+					var user_id = $("input[name = 'user_id']").val();
+					//변수 안주고
+					//if ($("input[name = 'user_id'"].val().replace(/\s/g,"")=="") { 
+						//이렇게 써도됨 변수없이
+					if (user_id.replace(/\s/g,"")=="") {
+						alert("아이디를 입력");
+						$("input[name ='user_id']").val("");
+						$("input[name = 'user_id']").focus();
+						//$("input[name = 'user_id']").val("");
+						//$("input[name='user_id']").attr("placeholder","아이디를 입력");
+						return false;
+					}
+					if($("input[name='user_pw']").val().replace(/\s/g,"")==""){
+						alert("비밀번호를 입력해주세요.");
+						$("input[name='user_pw']").val("");
+						$("input[name='user_pw']").focus();
+						return false;
+					}
+					if($("#birth").val().replace(/\s/g,"") == "") {
+						alert("생년월일을 이볅");
+						$("#birth").val("");
+						$("#birth").focus();
+						return false;
+					}
+					
+					var patt= /^\d{4}[\.]\d{2}[.]\d{2}$/;
+					/*if($("#birth").val().search(patt)<0) {
+						alert("형식에 맞게 생년월일을 쓰세요");	
+						return;
+						//search는 혹시 찾지 못하면 -1 리턴
+						//찾으면 시작 인덱스를 줌
+					}
+					var pattern =new RegExp("^(19[0-9]{2}|20[012]{2})[\.](0[1-9]|1[012])[\.](0[1-9]|1[0-9]|2[0-9]|3[01])$");
+					console.log(pattern.test($("#birth").val()));
+					*/
+					//2015.06.06 형식으로 입력받도록 유효성 체크
+					if (patt.test($("#birth").val())==false) {
+						alert("1213.12.23 형식으로 써주세요");
+						return false;
+					}
+					if (!$("input[name = 'gender']").is(":checked")) {
+						alert("성별을 선택");
+						$("input[name='gender']:eq(0)").focus();
+						return false;
+					}										
+					//이 메일 검사
+					if ($("input[name='email']").val().replace(/\s/g,"")=="") {
+						alert("이메일 주소 입력");
+						$("input[name = 'email']").val("");
+						$("input[name = 'email']").focus();
+						return false;
+					}
+					if ($("input[name='emailDomain']").val().replace(/\s/g,"")=="") {
+						alert("이메일 주소를 입력");
+						$("input[name = 'emailDomain']").val("");
+						$("input[name = 'emailDomain']").focus();
+						return false;
+					}
+					//핸드폰 번호 검사
+					var pnpatt = /^(010-\d{4})|(01[1|6|7|8|9]-\d{3,4})\-(\d{4})$/;
+					
+					/*if (pnpatt.test($("#hpno").val())==false) {
+						alert("번호를 다시입력해주세요");
+						$("input[name=hpno]:eq(0)").focus();
+						return false;
+					}*/
+					if ($("input[name='hpno']").val().search(pnpatt)<0) {
+						alert("예로 010-3131-1213 형식으로 입력하셔야 합니다.");
+						return false;
+					}
+					//checkbox 선택여부 검사
+					if (!$("input[name = 'hobby']").is(":checked")) {
+						alert("취미를 선택해주세요");
+						$("input[name='hobby']:eq(0)").focus();
+						//console.log($("input[name='hobby']>option:selected").index());
+						//console.log($("input[name:'hobby']>option:selected").val());
+						return false;
+					}
+					// selectbox 선택여부 검사
+					// $(select의 셀렉터 > option:selected").index() 선택된 대상의 index 번호
+					// $ (select의 셀렉터) > option:selected").val() : 선택된 항목의 값
+					if ($("select[name = 'job'] > option:selected").index() <1) {
+						alert("직업을 선택해주세요");
+						$("select[name='job']").focus();
+						return false;
+					}
+					
+					var user_id = $("#user_id").val();
+					var user_pw = $("input[name='user_pw']").val();
+					var birth = $("input[name = 'birth']").val();
+					var gender = $("input[name='gender']:checked").val();
+					var email = $("input[name ='email]").val() + "@" + $("select[name='emailAddress']").val();
+					var hpno = $("input[name = 'hpno']").val();
+					var job =$("select[name='job'] > option:selected").val();
+					
+					var hobby = $("input[name = 'hobby']:checked");
+					var select_hobby = "";
+					hobby.each(function() {
+						select_hobby +=$(this).val() + " ";
+					});
+					
+					var result = "<h1> 회원가입 입력 데이터 </h1><ul>";
+					result += "<li>아이디 : " + user_id + "</li>";
+					result += "<li>비밀번호 : " +user_pw + "</li>";
+					result += "<li>생년월일: " + birth + "</li>";
+					result += "<li>성별: " + gender + "</li>";
+					result += "<li>email: " + email + "</li>";
+					result += "<li>phonenumber: " + hpno + "</li>";
+					result += "<li>hobby: " + select_hobby + "</li>";
+					result += "<li>job: " + job + "</li>";
+					//$("#formResult").html(result);
+					$("#formResult").show();
+					$("#formResult").html(result);
+					
+					
+					
+					
+					/*var resulttext= "<h1> 입력 데이터</h1><ul>";
+					//resulttext += "<li>ID : "+$("input[name = 'user_id']").val()+"</li>";
+					
+					resulttext += "</ul>";
+					$("#formResult").show();
+					$("#formResult").html(resulttext);*/
+					
+					//submit되면 결과 확인이 안되므로 전송처리가제 종료
+					return false;
+				});
+			});
+		</script>
+		<style type="text/css">
+			.input_group {
+				height : 42px;
+				border-bottom: 1px dotted #ccc;
+				font : 1em /40px '돋움','Helvetica'};
+				
+			.input_group:last-child{
+				border-width:0px;
+			}
+			
+			.input_group > label:first-child {
+				width: 80px; display : inline-block; margin-left : 5px;
+			}
+			.input_group > span {
+				 display : inline-block;
+				 width : 100%;
+				 text-align:center;
+			}
+			#formResult {
+			display : none;
+			border : 1px solid #000;
+			width : 600px;
+			margin -top: 10px;
+			}
+			#formResult > h1 {
+				margin-left:5px;
+			}
+			
+		</style>
+	</head>
+		<body>
+			<h3>회원가입</h3>
+		<form name="join" id="join">
+			
+			<div class="input_group">
+				<label>아이디</label>
+				<input type="text" id="user_id" name="user_id">
+			</div>
+			<div class="input_group">
+				<label>비밀번호</label>
+				<input type="password" id="user_pw" name="user_pw">
+			</div>
+			<div class="input_group">
+				<label>생년월일</label>
+				<input type="text" id="birth" name="birth">
+			</div>
+			<div class="input_group">
+				<label>성별</label>
+				<label><input type="radio" name="gender" value="남자">남자</label>
+				<label><input type="radio" name="gender" value="여자">여자</label>
+			</div>
+			<div class="input_group">
+				<label>이메일</label>
+				<input type="text" id="email" name="email">
+				<label>@</label>
+				<input type="text" id="emailDomain" name = "emailDomain" readonly="readonly"/>
+				<select name = "emailAddress" id = "emailAddress">
+					<option value="">선택</option>
+					<option id="naver" value="naver.com">naver.com</option>
+					<option id="gmail"value="gmail.com">google.com</option>
+					<option id="daum" value="daum.net">daum.net</option>
+					<!-- onchange로  -->
+				</select>
+			</div>
+			<div class="input_group">
+				<label>핸드폰번호</label>
+				<input type="text" id="hpno" name="hpno">
+			</div>
+			<div class="input_group">
+				<label>취미</label>
+				<label><input type="checkbox" name="hobby" value="walk">걷기</label>
+				<label><input type="checkbox" name="hobby" value="soccker">축구</label>
+				<label><input type="checkbox" name="hobby" value="basketball">농구</label>
+				<label><input type="checkbox" name="hobby" value="baseball">야구</label>
+				<label><input type="checkbox" name="hobby" value="travel">여행</label>
+				<label><input type="checkbox" name="hobby" value="movie">영화</label>
+			</div>
+			<div class="input_group">
+				<label>직업</label>
+				<select name ="job" id = "job">
+					<option>----선택하세요----</option>
+					<option value="actor">배우</option>
+					<option	value="programer">개발자</option>
+					<option value="teacher">선생님</option>
+					<option value="company">회사원</option>
+				</select>
+			</div>
+			<div class="input_group">
+				<span>
+					<input type="submit" value="회원가입" class="myButton">
+					<input type="reset" value="다시작성" class = "myButton">
+				</span>
+			</div>
+			</form>
+			<div id = "formResult"> </div>
+		</body>
+	</html>

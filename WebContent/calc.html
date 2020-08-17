@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Insert title here</title>
+		<meta charset="utf-8" />
+		<!-- html4 : 파일의 인코딩 방식 지정 -->
+		<!--<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />-->
+
+		<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+		<!-- 브라우저의 호환성 보기 모드를 막고, 해당 브라우저에서 지원하는 가장 최신 버전의 방식으로 HTML 보여주도록 설정.-->
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+		<!--viewport : 화면에 보이는 영역을 제어하는 기술. width는 device-width로 설정(브라우저 너비를 장치 너비에 맞추어 표시). initial-scale는 초기비율(보이는 영역과 웹 페이지를 맞춤). user-scalable는 사용자가 화면축소를 하지 못하도록 설정.-->
+      			
+		<link rel="shortcut icon" href="../image/icon.png" />
+		<link rel="apple-touch-icon" href="../image/icon.png" />
+				
+		<!-- IE8 이하에서 HTML5를 인식시키기 위해 아래의 패스필터를 적용-->
+		<!--[if lt IE 9]>
+			<script src="../js/html5shiv.js"></script>
+		<![endif]-->
+		<style type="text/css">
+		$fontsize: 16px;
+		@mixin boxshadow($args...) {
+			  box-shadow: $args;
+			  -webkit-box-shadow: $args;
+			  -moz-box-shadow: $args;
+			}
+			
+			body {
+			  margin: 0;
+			  padding: 0;
+			  font: #{$fontsize}/1.5em "Open Sans", sans-serif;
+			  color: #212121;
+			  text-transform: uppercase;
+			  background: #BE93C5;
+			  background: -webkit-linear-gradient(to left, #BE93C5, #7BC6CC);
+			  background: linear-gradient(to left, #BE93C5, #7BC6CC);
+			}
+			
+			::-moz-selection {
+			    background-color: rgba(#fff, .4);
+			}
+			
+			::selection {
+			  background-color: rgba(#fff, .4);
+			}
+			
+			#calculater {
+			  position: relative;
+			  width: 24rem;
+			  height: auto;
+			  display: block;
+			  margin: 0 auto;
+			  padding: 0;
+			  border: 1px solid rgba(#fff, .4);
+			  border-radius: 2px;
+			  overflow: hidden;
+			  @include boxshadow(0 0 30px rgba(#212121, .2));
+			}
+			
+			#display {
+			  display: block;
+			  width: 100%;
+			  height: 7rem;
+			  padding: 0;
+			  margin: 0;
+			  text-align: right;
+			  background-color: rgba(#fff, .3);
+			  border-bottom: 1px solid rgba(#000, .2);
+			  overflow-x: auto;
+			  overflow-y: hidden;
+			}
+			
+			#current, #last-action {
+			
+			  margin-right: 1rem;
+			}
+			
+			#current {
+			  margin-top: 2rem;
+			  margin-bottom: 1rem;
+			  font-size: 3rem;
+			}
+			
+			#last-action {
+			  font-size: 1rem;
+			  opacity: .6;
+			}
+			
+			#controls {
+			  @extend #display;
+			  height: auto;
+			  text-align: center;
+			  background-color: rgba(#fff, .8);
+			  border: none;
+			}
+			
+			ul {
+			  width: 100%;
+			  display: block;
+			  margin: 0;
+			  padding: 0;
+			  list-style: none;
+			  overflow: hidden;
+			
+			  li {
+			    width: 6rem - (1rem / 16);
+			    float: left;
+			    display: block;
+			    margin: 0;
+			    padding: 1.5rem 0;
+			    border-right: 1px solid rgba(#000, .2);
+			    border-bottom: 1px solid rgba(#000, .2);
+			    font-size: 1.2rem;
+			    overflow: hidden;
+			    cursor: pointer;
+			
+			    &.two-col {
+			      width: 12rem - (1rem / 16);
+			    }
+			
+			    &.two-row {
+			      padding: 3.8rem 0;
+			      float: right;
+			    }
+			
+			    &:nth-child(4n) {
+			      border-right: none;
+			    }
+			    &:nth-last-child(-n + 3) {
+			      border-bottom-color: transparent;
+			    }
+			
+			    &:hover, &:active {
+			      background-color: #fff;
+			    }
+			  }
+			}
+					
+		</style>
+		
+		<script type="text/javascript">
+		// position the calculater in the middle of the screen
+		function middleSection() {
+		  var windowHeight = window.innerHeight;
+		  var section = document.getElementById('calculater');
+		  var sectionHeight = section.offsetHeight;
+		  section.style.marginTop = (windowHeight / 2) - (sectionHeight / 2) + "px";
+		}
+
+		window.onresize = function(e) {
+		  middleSection();
+		}
+
+		middleSection();
+
+		// get variebles for each button/input
+		var prev = "",
+		    current = "",
+		    domath = "",
+		    lastNum = "",
+		    resetCurrent = false,
+		    resetPrev = false,
+		    lastNumberMode = true,
+		    resetDomath = true,
+		    decimal = false,
+		    cEL = document.getElementById('btn-c'),
+		    ceEL = document.getElementById('btn-ce'),
+		    prevEl = document.getElementById('last-action'),
+		    currentEl = document.getElementById('current'),
+		    numbersSelector = document.querySelectorAll('.numbers'),
+		    divide = document.getElementById('btn-d'),
+		    multiple = document.getElementById('btn-t'),
+		    plus = document.getElementById('btn-p'),
+		    minus = document.getElementById('btn-m'),
+		    equal = document.getElementById('btn-e'),
+		    opArr = [divide, multiple, plus, minus, equal];
+
+		// functions to update the display
+		function lastNumber(element) {
+		  if (lastNumberMode === true) {
+		    lastNum += element;
+		  }
+		}
+
+		function addToPrev(element) {
+		  if (prevEl.style.display === "none" && resetPrev === false) {
+		    prev = lastNum + element;
+		    prevEl.style.display = "block";
+		    currentEl.style.marginTop = "2rem";
+		  } else if (prevEl.style.display === "none" && resetPrev === true) {
+		    lastNum = "";
+		    prev = element;
+		    prevEl.style.display = "block";
+		    currentEl.style.marginTop = "2rem";
+		  } else {
+		    prev += element;
+		  }
+		  prevEl.innerHTML = prev;
+		}
+
+		function showCurrent(element) {
+		  if (currentEl.innerHTML === "0" || resetCurrent === true) {
+		    current = element;
+		    currentEl.innerHTML = current;
+		    resetCurrent = false;
+		  } else {
+		    current += element;
+		    currentEl.innerHTML = current;
+		  }
+		}
+
+		function clearPrev() {
+		  prev = "";
+		  prevEl.style.display = "none";
+		  currentEl.style.marginTop = "3rem";
+		}
+
+		function clearCurrent() {
+		  current = "0";
+		  currentEl.innerHTML = current;
+		}
+
+		function doMaths() {
+		  if (domath === "divide") {
+		    current = Number(lastNum) / Number(current);
+		    afterMath();
+		  } else if (domath === "multiple") {
+		    current = Number(lastNum) * Number(current);
+		    afterMath();
+		  } else if (domath === "plus") {
+		    current = Number(lastNum) + Number(current);
+		    afterMath();
+		  } else if (domath === "minus") {
+		    current = Number(lastNum) - Number(current);
+		    afterMath();
+		  } else if (domath === "equal") {
+		    afterMath();
+		  }
+		}
+
+		function afterMath() {
+		  if (current % 1 !== 0 && current.toString().length > 8) {
+		    current = Number(current).toFixed(6);
+		  }
+		  lastNum = current.toString();
+		  showCurrent(lastNum);
+		  resetCurrent = true;
+		  resetDomath = true;
+		  domath = "";
+		}
+
+		// decide what to do when a button is clicked
+		Array.prototype.forEach.call(numbersSelector, function(val) {
+		  val.onclick = function(e) {
+		    resetDomath = false;
+		    if (this.innerHTML !== ".") {
+		      addToPrev(this.innerHTML);
+		      showCurrent(this.innerHTML);
+		      lastNumber(this.innerHTML);
+		    } else if (this.innerHTML === "." && decimal === false) {
+		      addToPrev(this.innerHTML);
+		      showCurrent(this.innerHTML);
+		      lastNumber(this.innerHTML);
+		      decimal = true;
+		    }
+		  }
+		});
+
+		opArr.forEach(function(element) {
+		  element.onclick = function(e) {
+		    if (resetDomath === false) {
+		      resetDomath = true;
+		      resetPrev = false;
+		      decimal = false;
+		      addToPrev(this.innerHTML);
+		      lastNumberMode = false;
+		      resetCurrent = true;
+		      doMaths();
+		    } else if (resetDomath === true) {
+		      prev = prev.substr(0, prev.length - 1);
+		      addToPrev(this.innerHTML);
+		    }
+
+		    if (element === divide) {
+		      domath = "divide";
+		    } else if (element === multiple) {
+		      domath = "multiple";
+		    } else if (element === plus) {
+		      domath = "plus";
+		    } else if (element === minus) {
+		      domath = "minus";
+		    } else if (element === equal) {
+		      domath = "equal";
+		      clearPrev();
+		      prev = current;
+		      lastNum = current;
+		      resetDomath = false;
+		      resetPrev = true;
+		    }
+		}
+		});
+
+		ceEL.onclick = function(e) {
+		  var rep = new RegExp(current + "$")
+		  prev = prev.replace(rep, "");
+		  prevEl.innerHTML = prev;
+		  clearCurrent();
+		};
+
+		cEL.onclick = function(e) {
+		  clearCurrent();
+		  clearPrev();
+		  lastNum = "";
+		};
+
+		</script>
+	</head>
+		<body>
+			<div id="calculater">
+  				<section id="display">
+    				<div id="current">
+     			 	0
+    				</div>
+  					<div id="last-action">
+     		 		<em>0</em>
+   			 		</div>
+			    </section>
+ 			 	<section id="controls">
+    			  <ul id="buttons">
+				      <li id="btn-ce">ce</li>
+				      <li id="btn-c">c</li>
+				      <li id="btn-d">&divide;</li>
+				      <li id="btn-t">&times;</li>
+				      <li class="numbers" id="btn-1">1</li>
+				      <li class="numbers" id="btn-2">2</li>
+				      <li class="numbers" id="btn-3">3</li>
+				      <li id="btn-m">&minus;</li>
+				      <li class="numbers" id="btn-4">4</li>
+				      <li class="numbers" id="btn-5">5</li>
+				      <li class="numbers" id="btn-6">6</li>
+				      <li id="btn-p">&plus;</li>
+				      <li class="numbers" id="btn-7">7</li>
+				      <li class="numbers" id="btn-8">8</li>
+				      <li class="numbers" id="btn-9">9</li>
+				      <li class="two-row" id="btn-e">&equals;</li>
+				      <li class="two-col numbers" id="btn-0">0</li>
+				      <li class="numbers" id="btn-dot">.</li>
+			      </ul>
+			    </section>
+			</div>
+		</body>
+	</html>

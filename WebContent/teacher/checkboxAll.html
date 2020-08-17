@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Insert title here</title>
+		<meta charset="utf-8" />
+		<!-- html4 : 파일의 인코딩 방식 지정 -->
+		<!--<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />-->
+
+		<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+		<!-- 브라우저의 호환성 보기 모드를 막고, 해당 브라우저에서 지원하는 가장 최신 버전의 방식으로 HTML 보여주도록 설정.-->
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+		<!--viewport : 화면에 보이는 영역을 제어하는 기술. width는 device-width로 설정(브라우저 너비를 장치 너비에 맞추어 표시). initial-scale는 초기비율(보이는 영역과 웹 페이지를 맞춤). user-scalable는 사용자가 화면축소를 하지 못하도록 설정.-->
+      			
+		<link rel="shortcut icon" href="../image/icon.png" />
+		<link rel="apple-touch-icon" href="../image/icon.png" />
+				
+		<!-- IE8 이하에서 HTML5를 인식시키기 위해 아래의 패스필터를 적용-->
+		<!--[if lt IE 9]>
+			<script src="../js/html5shiv.js"></script>
+		<![endif]-->
+		<script type="text/javascript" src = "../js/jquery-1.12.4.min.js">
+		</script>
+		<script type="text/javascript">
+			
+		$(function () {
+			$("img").click(function () {
+				index = (index %3) +1;
+				$(this).attr("src", "../image/" + index + ".jpg");
+			});
+			//all check 요소의 사애가 변한 경우
+			$("#all_check").change(function() {
+				var is_check = $(this).is(":checked");
+				$(".hobby_check").prop("checked",is_check);
+  			});
+			
+			//upload_file_check 상태가 변한경우
+			$("#upload_file_check").change(function() {
+				var is_check = $(this).is(":checked");
+				$("#file_finder").prop("disabled",!is_check); //disabled 속성 비활성화
+			});
+			
+			
+			$("#btn1").click(function() {
+				//$('.box1').css({ 'color':'red', 'font-size':'150%'});
+				$("#box").css("color","red");
+			});
+			$("#btn2").click(function() {
+				$("#box").addClass("box2");
+				$("#box").removeClass("box1");
+			});
+		});
+		</script>
+		<style type="text/css">
+			.box {
+				margin : 10px auto;
+				border : 5px solid #ccc;
+				padding : 30px;
+				text-align : center;
+			}
+			.box2 {
+				margin : 10px auto;
+				border : 10px solid black;
+				background-color: #ff0 !important;
+				padding:25px;
+				text-align:left;
+			}
+		</style>
+	</head>
+		<body>
+			<form name = "form1">
+				<fieldset>
+					<legend>추미ㅣ</legend>
+					<p>
+						<input type = "checkbox" id = "all_check" class ="hobby_check" >
+						<label for = "all_check">all  </label>
+						<input type = "checkbox" id = "hobby1" class ="hobby_check" value = "soccer">
+						<label for = "hobby1">soccer  </label>
+						<input type = "checkbox" id = "hobby2" class ="hobby_check" value = "baseball">
+						<label for = "hobby1">baseball  </label>
+						<input type = "checkbox" id = "hobby3" class ="hobby_check" value = "basketball">
+						<label for = "hobby1">basketball  </label>
+					</p>
+						
+				</fieldset>
+			</form>	
+			
+			<h1>활성 비활성화 구현</h1>
+			<form name = "form2">
+				<!-- 활성 상태 제어용 체크박스 -->
+				<input type = "checkbox" id = "upload_file_check" value = "Y" />
+				<label for="upload_file_check"> 파일 올리기 </label>
+				<!-- 파일업로드 요소 . 기본적으로 비활성 상ㅊ태로 설정함 -->
+				<input type = "file" id ="file_finder" disabled />
+			</form>	
+			
+			
+			<h1 >CSS제어  </h1>
+			<!--  -->
+			<div id = "box" class ="box1"> <h1>테스트 영역입니다</h1> </div>
+			<input type = "button" id ="btn1" value = "font red">
+			<input type = "button" id ="btn2" value = "box2 class applied">
+			
+					
+			</body>
+	</html>

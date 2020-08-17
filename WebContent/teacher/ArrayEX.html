@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Insert title here</title>
+		<meta charset="utf-8" />
+		<!-- html4 : 파일의 인코딩 방식 지정 -->
+		<!--<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />-->
+
+		<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+		<!-- 브라우저의 호환성 보기 모드를 막고, 해당 브라우저에서 지원하는 가장 최신 버전의 방식으로 HTML 보여주도록 설정.-->
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+		<!--viewport : 화면에 보이는 영역을 제어하는 기술. width는 device-width로 설정(브라우저 너비를 장치 너비에 맞추어 표시). initial-scale는 초기비율(보이는 영역과 웹 페이지를 맞춤). user-scalable는 사용자가 화면축소를 하지 못하도록 설정.-->
+      			
+		<link rel="shortcut icon" href="../image/icon.png" />
+		<link rel="apple-touch-icon" href="../image/icon.png" />
+				
+		<!-- IE8 이하에서 HTML5를 인식시키기 위해 아래의 패스필터를 적용-->
+		<!--[if lt IE 9]>
+			<script src="../js/html5shiv.js"></script>
+		<![endif]-->
+		
+		<script type="text/javascript">
+		  var myArray = new Array("자바", "자바스크립트","스프링");
+		  
+		  document.write("<h5>" + myArray[0] + "</h5>");
+		  document.write("<h5>" + myArray[1] + "</h5>");
+		  document.write("<h5>" + myArray[2] + "</h5>");
+		  
+		  var myArray1 = new Array(); //var myArray1 = [];
+		  
+		  for (var i = 0; i < 10; i++) {
+			myArray[i] = i;
+		}
+		  document.write("myArray1 length : " + myArray1.length + "<br>");
+		  
+		  for (var i = 0; i < myArray1.length; i++) {
+			  document.write(myArray1[i] + " ");
+		  }
+		  document.write("<br/>");
+		  
+		  document.write("<h3>join() priint</h3>");
+		  document.write("<p>" + myArray1.join(" ") + "</p>");
+		  
+		  document.write("<h3>sort method</h3>");
+		  var myArray2 = [10,7,23,9,99,169,11,1,9];
+		  myArray2.sort();
+		  document.write("<p>" + myArray2.join("/")+"</p>");
+		  
+		  var myArray3 = [10,7,23,9,99,169,11,1,9];
+		  myArray3.sort(function(a,b) { return a -b;});
+		  document.write("<p>오름차순: " + myArray3.join(",") + "</p>");
+		  myArray3.reverse(function(a,b) { return a -b;});
+		  document.write("<p>내림차순: " + myArray3.join(",") + "</p>");
+		  
+		  
+		  function print_array(a, name) {
+			  document.write("Size of array : " + a.length + "<br>");
+			  for (var i = 0; i < a.length; i++) {
+				document.write(name + "[" + i +"]: ");
+				if (typeof(a[i]) == "string") {
+					document.write("\"" + a[i] + "\" <br/>");				
+				}else
+					document.write(a[i] + " <br/>");
+			}
+			  document.write("<br/>");
+		  }
+		  var array = new Array("one" , 2, "3",4,"five");
+		  
+		  array[6] = 6;
+		  array[7] = "seven";
+		  array[9] = "3+6";
+		  print_array(array, "array");
+		  
+		  var array1 = [];
+		  array1.length =4;
+		  document.write("array1: <br/>");
+		  print_array(array1,"array1");
+		  
+		  var array2 = [];
+		  array2[99] = 100;
+		  document.write("array2 length: " + array2.length+ "<br/>");
+		  
+		  
+		  //연관 배열
+		  var array3 = []
+		  array3["name"] = "홍길동";
+		  array3["age"] = "32";
+		  document.write(array3["name"] + " / " + array3["age"]+ "<br/>");
+		  
+		  for ( var value in array3) {
+			console.log(value);
+			document.write(array3[value]);
+		}
+		  var array4 = new Array(10,20,30,40,50);
+		  function isBigArray(element){
+			  return (element>=30)
+		  }
+		  
+		  var resultData = array4.filter(isBigArray);
+		  document.write(resultData.join())
+		  document.write("<br/>");
+		  
+		  var myarray = [
+			  ["홍길동","자바","스프링"],
+			  ["김영희","오라클","JSP"]
+			  ];
+		  
+		  var arr = new Array(
+			 new Array("홍기롱","자바","스프링"),
+			 new Array("김영희","이응","JSP");
+		  );
+		  
+		  document.write("<h2>2차원 배열 예제</h2>");
+		  
+		  for (var i = 0; i < myarray.length; i++) {
+			for (var j = 0; j < myarray[i].length; j++) {
+				document.write("<h4>" + myarray[i][j] + "</h4>");
+			}
+		}
+		  
+		  
+		  
+		</script>
+	</head>
+		<body>
+			
+		</body>
+	</html>

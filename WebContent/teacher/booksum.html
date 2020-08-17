@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Insert title here</title>
+		<meta charset="utf-8" />
+		<!-- html4 : 파일의 인코딩 방식 지정 -->
+		<!--<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />-->
+
+		<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+		<!-- 브라우저의 호환성 보기 모드를 막고, 해당 브라우저에서 지원하는 가장 최신 버전의 방식으로 HTML 보여주도록 설정.-->
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+		<!--viewport : 화면에 보이는 영역을 제어하는 기술. width는 device-width로 설정(브라우저 너비를 장치 너비에 맞추어 표시). initial-scale는 초기비율(보이는 영역과 웹 페이지를 맞춤). user-scalable는 사용자가 화면축소를 하지 못하도록 설정.-->
+      			
+		<link rel="shortcut icon" href="../image/icon.png" />
+		<link rel="apple-touch-icon" href="../image/icon.png" />
+				
+		<!-- IE8 이하에서 HTML5를 인식시키기 위해 아래의 패스필터를 적용-->
+		<!--[if lt IE 9]>
+			<script src="../js/html5shiv.js"></script>
+		<![endif]-->
+		<script type="text/javascript">
+		function updateAll(){
+			 // input의 id값 book1~3의 수량을 가져와서 n1~n3까지 임의의 변수를 만들어서 집어넣습니다.
+			 var n1 = document.getElementById("book1").value;
+			 var n2 = document.getElementById("book2").value;
+			 var n3 = document.getElementById("book3").value;
+			    
+			 // 각 책의 가격에 앞에 가져온 책의 수량을 계산해서 p1~p3까지 임의로 변수를 만들어 집어넣습니다.
+			 var p1 = 25000* n1;
+			 var p2 = 27000* n2;
+			 var p3 = 25000* n3;
+			    
+			 // 각각 계산된 책의 값을 합계값을 book1Total ~ book3Total 까지 각각 넣어줍니다.
+			 document.getElementById("book1Total").value = p1;
+			 document.getElementById("book2Total").value = p2;
+			 document.getElementById("book3Total").value = p3;
+			    
+			 // 수량이 들어갈 곳의 id인 totalNumber에 n1~n3 까지의 합을 계산해서 넣어줍니다.
+			 // 문자열로 인식해서 정수형으로 바꿔줬습니다.
+			 // 원래소스 : 1 + 2 + 3 = 123 --> 수정소스 : 1 + 2 + 3 = 6   
+			 var totalNumber = parseInt(n1) + parseInt(n2) + parseInt(n3);
+			 document.getElementById("totalNumber").value = totalNumber;
+			    
+			 // 책의 총 가격이 들어갈 id인 totalPrice에 p1~p3까지의 합을 계산해서 넣어줍니다.
+			 var totalPrice = p1 + p2 + p3;
+			 document.getElementById("totalPrice").value = totalPrice;
+			 }
+		</script>
+	</head>
+		<body>
+			
+			<h2> 서적 주문 양식 </h2>
+			 <form action="">
+			 <p> 주문서 </p>
+			 <table border="1">
+			 <tr>
+			 <th> 책 제목 </td><th> 가격 </th> <th> 수량 </th> <th> 합계 </th> 
+			 </tr>
+			 <tr>
+			 <td> 멀티미디어 배움터 2.0</td> <td> 25,000원 </td>
+			 <td> <input id="book1" type="text" size="2" value="0"
+			 onclick="this.select();"/> </td>
+			 <td> <input id="book1Total" type="text" size= "6" value="0"/>원</td>
+			 </tr>
+			 <tr>
+			 <td> 모바일 멀티미디어 </td> <td> 27,000원 </td>
+			 <td> <input id="book2" type="text" size="2" value="0"
+			 onclick="this.select();"/> </td>
+			 <td> <input id="book2Total" type="text" size="6" value="0"/>원</td>
+			 </tr>
+			 <tr>
+			 <td> 자바입문: 이론과 실습 </td> <td> 25,000원 </td>
+			 <td> <input id="book3" type="text" size"2" value="0"
+			 onclick="this.select();"/> </td>
+			 <td> <input id="book3Total" type="text" size="6" value="0"/> 원</td>
+			 </tr>
+			 <tr>
+			 <td> 합계 </td> <td> &nbsp; </td>
+			 <td> <input id="totalNumber" type="text" size="2" value="0"/> </td>
+			 <td> <input id="totalPrice" type="text" size="6" value="0"/> 원</td>
+			 </tr>
+			 </table> <br />
+			<input type="button" value="합계계산" onclick="updateAll()"/>
+			<input type="reset" value="초기화"/>
+			 </form>
+		</body>
+	</html>

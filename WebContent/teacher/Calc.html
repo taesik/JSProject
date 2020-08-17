@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<style type="text/css">
+	  #resultArea{display:inline-block; width:50px; color: red;}
+	  input[type = "text"]{width:60px;}
+	</style>
+		<title>Insert title here</title>
+		<meta charset="utf-8" />
+		<!-- html4 : 파일의 인코딩 방식 지정 -->
+		<!--<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />-->
+
+		<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+		<!-- 브라우저의 호환성 보기 모드를 막고, 해당 브라우저에서 지원하는 가장 최신 버전의 방식으로 HTML 보여주도록 설정.-->
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+		<!--viewport : 화면에 보이는 영역을 제어하는 기술. width는 device-width로 설정(브라우저 너비를 장치 너비에 맞추어 표시). initial-scale는 초기비율(보이는 영역과 웹 페이지를 맞춤). user-scalable는 사용자가 화면축소를 하지 못하도록 설정.-->
+      			
+		<link rel="shortcut icon" href="../image/icon.png" />
+		<link rel="apple-touch-icon" href="../image/icon.png" />
+				
+		<!-- IE8 이하에서 HTML5를 인식시키기 위해 아래의 패스필터를 적용-->
+		<!--[if lt IE 9]>
+			<script src="../js/html5shiv.js"></script>
+		<![endif]-->
+		<script type="text/javascript">
+		var Calc = {}; //빈객체 생성
+		
+		Calc.num1 = 0; //두수를 0으로 초기화
+		Calc.num2 = 0;
+		Calc.setValue = function(num1,num2) {
+			this.num1 = num1;
+			this.num2 = num2;
+		};
+		
+		//멤버 변수 끼리 덧셈한 결과를 리턴
+		Calc.plus = function() {
+			return this.num1 + this.num2;
+		};
+		
+		//멤버 변수끼리의 뺄셈 겨로가를 리턴
+		Calc.minus = function() {
+			return this.num1 - this.num2;
+		};
+		
+		//멤버 변수끼리의 곱셈 결과를 리턴
+		Calc.multiply = function() {
+			return this.num1*this.num2;
+			
+		};
+		//멤버변수끼리의 나눈셈 겨로가를 리턴
+		Calc.devide = function() {
+			return this.num1 / this.num2;
+		};
+		
+		
+		Calc.result = function(oper, area) {
+			var value = 0;//value를 0으로 초기화 
+			console.log("oper= "+oper);
+			
+			
+			switch (oper) {
+			case "+": value = this.plus();break;
+			case "-": value = this.minus();break;
+			case "X": value = this.multiply();break;
+			case "/": value = this.devide();break;
+			}
+			area.innerHTML = value;
+		}
+		
+			</script>
+		<script type="text/javascript">
+		  function showResult() {
+			  var num1 = parseInt(document.getElementById("num1").value);
+			  var num2 = parseInt(document.getElementById("num2").value);
+			  
+			  
+			  Calc.setValue(num1, num2);
+			  var resultArea = document.getElementById("resultArea");
+			  var oper = document.getElementById("op").value;
+			  
+			  Calc.result(oper, resultArea);
+		  	  resultArea.style.color = "#000000";	
+		  }
+		  
+		  function hideResult() {
+			  //document.getElementById("number").value = "";
+			  //document.getElementById("number2").value = "";
+			  document.form.reset();
+			  document.getElementById("resultArea").innerHTML = "?";
+		  	  document.getElementById("resultArea").style.color = "red";	
+		  }
+		</script>
+		
+		
+		
+	</head>
+		<body>
+			<h1>
+			두수의 연산</h1>
+			<form name="form">
+			  <input type = "text" name = "num1" id = "num1" />
+			  <select name = "op" id = "op">
+			  	<option value ="+">+</option>
+			  	<option value ="-">-</option>
+			  	<option value ="X">X</option>
+			  	<option value = "/">/</option>
+			  </select>
+			  <input type ="text" name = "num2" id = "num2" />
+			  <label>=</label>
+			  <span id="resultArea" onmouseover="showResult()" onmouseout = "hideResult()">?<>	
+			</form>
+		</body>
+	</html>
