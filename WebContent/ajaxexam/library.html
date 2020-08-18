@@ -22,7 +22,7 @@
 		<script type="text/javascript" src = "../js/jquery-1.12.4.min.js"></script>
 		<script type="text/javascript">
 			$(function () {
-				$.ajax({
+				/*$.ajax({
 					url: '../Ajax/xml/book.xml',
 					type: "get",
 					dataType:'xml',
@@ -30,12 +30,13 @@
 						$(data).find('book').each(function() {
 							console.log($(this).index());
 							//if($(this).index()==2) {
+							var no = $(this).index() +1;
 							var title = $(this).find("title").text();
 							var author = $(this).find("author").text();
 							var price = $(this).find("price").text();
 							var publisher = $(this).find("publisher").text();
 							
-							var txt = $("<li>").html(title + ", " + author + ", " + price +","+publisher);
+							var txt = $("<li>").html(no+"," + title + ", " + author + ", " + price +","+publisher);
 							$('#view').append(txt);
 						
 							//}
@@ -45,7 +46,21 @@
 					error : function (xhr, textStatus, errorThrown) {
 						$(".console").html(textStatus + " (HTTP-" + shr.status + " / " + errorThrown + ")");
 					}
-				});// ajax end
+				});*/
+				$.get('../ajax/xml/book.xml',function(data) {
+					$(data).find('book').each(function() {
+						var title = $(this).find("title").text();
+						var author = $(this).find("author").text();
+						var price = $(this).find("price").text();
+						
+						var txt = $("<li>").html(title + " , " + author + ", " + price);
+						$('#view').append(txt);
+					});
+				}).fail(function (xhr, status, error,responseText) {
+					$("#result").html("오류가 발생했습니다.<br />").append("오류명 : " + error + "<br/>")
+					.append("상태: "+status).append("응답내용 : " + xhr.responseText);
+					
+				});
 				
 			});//function end
 		</script>
