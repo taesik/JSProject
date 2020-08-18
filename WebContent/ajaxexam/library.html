@@ -38,10 +38,8 @@
 							
 							var txt = $("<li>").html(no+"," + title + ", " + author + ", " + price +","+publisher);
 							$('#view').append(txt);
-						
 							//}
 						});
-						
 					},
 					error : function (xhr, textStatus, errorThrown) {
 						$(".console").html(textStatus + " (HTTP-" + shr.status + " / " + errorThrown + ")");

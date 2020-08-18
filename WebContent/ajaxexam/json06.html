@@ -44,24 +44,23 @@
 							var li3 = $("<li>").html(teacher);
 							
 							ul.append(li1).append(li2).append(li3);
+							
+							$("#result").append(ul);
 						}
 						
 					}
 					
 					
-				})
+				});
 				
-			})
+			});
 		</script>
 	</head>
 		<body>
-			<body>
 			<h1 class = "title"> </h1>
 			<div class ="exec">
 				<input type = "button" value = "JSON 가져오기" id="mybtn">
 			</div>
 			<div class = "console" id ="result"> </div>
-		</body>
-			
 		</body>
 	</html>

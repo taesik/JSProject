@@ -1,0 +1,189 @@
+<!DOCTYPE html><!-- 문서 유형 : 현재 웹 문서가 어떤 HTML 버전에 맞게 작성되었는지를 알려준다. -->
+
+<!--<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+     DTD 선언문이 HTML 페이지의 가장 첫 라인에 명시되어야 웹 브라우저가 HTML 버전을 인식.
+     HTML태그나 CSS를 해당 버전에 맞도록 처리하므로 웹 표준 준수를 위하여 반드시 명시되어야 한다.-->
+<html lang="ko">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="Content-Type" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+		<!--viewport : 화면에 보이는 영역에 제어하는 기술. width는 device-width로 설정. initial는 초기비율, user-scalable는 사용자가 화면축소를 하지 못하도록 설정.-->
+		
+		<title>Insert title here</title>
+		
+		
+		<!-- 모바일 웹 페이지 설정 -->
+		<link rel="shortcut icon" href="../image/icon.png" />
+		<link rel="apple-touch-icon" href="../image/icon.png" />
+		<!-- 모바일 웹 페이지 설정 끝 -->
+		
+		<link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+		
+		<!--[if lt IE 9]>
+		<script src="../js/html5shiv.js"></script>
+		
+		<![endif]-->
+		
+		<style>
+			*{color:#333;}
+			ul{list-style:none;}
+			/*페이지 제목을 표현*/
+			h1{
+				font-size:large;
+				border-left: 10px solid #7BAEB5;
+				border-bottom: 1px solid #7BAEB5;
+				padding:10px;
+				width:auto;
+				background-color:#fff;
+			}
+			#comment_write{
+				padding:20px 15px;
+				border-bottom: 1px solid #7BAEB5;
+			}
+			#comment_write label{
+				display:inline-block;
+				width: 80px;
+				font-size:14px;
+				font-weight:bold;
+				margin-bottom:10px;
+			}
+			#comment_write input[type='text'], #comment_write textarea{
+				border: 1px solid #ccc;
+				vertical-align:middle;
+				padding:3px 10px;
+				font-size:12px;
+				line-height:150%;
+			}
+			#comment_write textarea{
+				width:380px;
+				height:90px;
+			}
+			
+			/**새로 추가된 거 스타일 **/
+			.comment_item{
+				font-size:13px;
+				color:#333;
+				padding:15px;
+				border-bottom:1px dotted #ccc;
+				line-height:150%;
+			}
+			.comment_item .writer{
+				color:#555;
+				line-height:200%;
+			}
+			.comment_item .writer input{
+				vertical-align: middle;
+			}
+			.comment_item .writer .name{
+				color:#222;
+				font-weight:bold;
+				font-size: 14px;
+			}
+		</style>
+		
+		<script type="text/javascript" src="../js/jquery-1.12.4.min.js"></script>
+		<script>
+			//새로운 글을 화면에 추가하기 위한 함수
+			var num=0;
+			//아래 함수 
+			function addNewItem(num,writer,content,datetime){
+				var new_li=$("<li>");
+				new_li.attr("data-num",num);
+				new_li.addClass("comment_item");
+				
+				var writer_p=$("<p>");
+				writer_p.addClass("writer");
+				
+				var name_span=$("<span>");
+				name_span.addClass("name");
+				name_span.html(writer+"님");
+				
+				var date_span=$("<span>");
+				date_span.html("/"+datetime+" ");
+				
+				var del_input=$("<input>");
+				del_input.attr({"type":"button","value":"삭제하기"});
+				del_input.addClass("delete_btn");
+				
+				var content_p=$("<p>");
+				content_p.html(content);
+				
+				writer_p.append(name_span).append(date_span).append(del_input);
+				new_li.append(writer_p).append(content_p);
+				$("#comment_list").append(new_li);
+			}//addNewItem 함수 종료.
+			
+			function dataReset(){
+				$("#user_name").val("");
+				$("#comment").val("");
+				$("#user_name").focus();
+			}//dataReset 함수 종료
+			
+			$(function(){
+				$.get("../JSON/comment_list.json","",function(data){
+					//var item=data.comment.item;
+					for(var i=0; i<data.comment.item.length; i++){
+						num= data.comment.item[i].num;
+						var writer= data.comment.item[i].writer;
+						var content= data.comment.item[i].content;
+						var datetime=data.comment.item[i].datetime;
+						addNewItem(num,writer,content,datetime);
+					}
+				}).fail(function(){
+					alert("댓글 목록을 불러오는데 실패하였습니다. 잠시후에 다시 시도해 주세요.")
+				});
+			$("#comment_form").submit(function () {
+				if ($("#user_name").val().replace(/\s/g,"")=="") {
+					alert("작성자를 입력");
+					$("#user_name").focus();
+					return false;
+				}
+				//내용에 대한 입력여부 검사
+				if ($("#comment").val().replace(/\s/g,"")=="") {
+					alert("댓글 내용을 입력");
+					$("#comment").focus();
+					return false;
+				}
+				
+				++num;
+				console.log(num);
+				var writer = $("#user_name").val();
+				var content = $("#comment").val();
+				var datetime = new Date().toLocalString();
+				
+				//저장 결과를 새로운 목록으로 출력하기 위해서 함수 호출
+				addNewItem(num, writer, content, datetime);
+				dataReset();
+				return false;
+			
+				});
+			});
+			
+		</script>
+		
+	</head>
+	<body>
+		<div id="container">
+			<h1>jQuery Comment</h1>
+				<div id="comment_write">
+					<form id="comment_form">
+						<div>
+							<label>작성자</label>
+							<input type="text" id="user_name" name="user_name" maxlength="15">
+							<input type="submit" value="저장하기" id="btn" name="btn">
+						</div>
+						<div>
+							<label>댓글 내용</label>
+							<textarea id="comment"></textarea>
+						</div>
+					</form>
+				</div>
+				<ul id="comment_list">
+				<!-- 여기에 동적 요소 집어넣기 -->
+				</ul>
+		</div>
+	</body>
+</html>
