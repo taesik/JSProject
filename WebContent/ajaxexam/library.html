@@ -19,21 +19,47 @@
 		<!--[if lt IE 9]>
 			<script src="../js/html5shiv.js"></script>
 		<![endif]-->
+		<script type="text/javascript" src = "../js/jquery-1.12.4.min.js"></script>
 		<script type="text/javascript">
-			function juminFocus() {
-				var jumin1 = document.getElementById("jumin1").value;
-				if (jumin1.length ==6) {
-					document.getElementById("jumin2").focus();
-				}//focus() 마우스 커서 옮기겟다
-			}
+			$(function () {
+				$.ajax({
+					url: '../Ajax/xml/book.xml',
+					type: "get",
+					dataType:'xml',
+					success: function (data) {
+						$(data).find('book').each(function() {
+							console.log($(this).index());
+							//if($(this).index()==2) {
+							var title = $(this).find("title").text();
+							var author = $(this).find("author").text();
+							var price = $(this).find("price").text();
+							var publisher = $(this).find("publisher").text();
+							
+							var txt = $("<li>").html(title + ", " + author + ", " + price +","+publisher);
+							$('#view').append(txt);
+						
+							//}
+						});
+						
+					},
+					error : function (xhr, textStatus, errorThrown) {
+						$(".console").html(textStatus + " (HTTP-" + shr.status + " / " + errorThrown + ")");
+					}
+				});// ajax end
+				
+			});//function end
 		</script>
 	</head>
 		<body>
-			<h1>keyup</h1>
-			<form name="form3" id = "form3">
-				<label> 주민등록번호: </label>
-				<input type ="text" id = "jumin1" name = "jumin1" maxlength="6" onkeyup = "juminFocus()"/>
-				<input type = "text" id = "jumin2" name ="jumin2" maxlength="7" />
-			</form>
+			<h1 class="title"> $.ajax() 함수를 사용한 XML데이터 	 읽기</h1>
+			<div class="exec">
+				<input type="button" value="xml데이터 가져오기" id="xmlbtn" />
+			</div>
+			<div class="console" id="result"> </div>
+			<ul id="view">
+			</ul>
+			
+		</body>
+			
 		</body>
 	</html>

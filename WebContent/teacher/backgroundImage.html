@@ -19,21 +19,46 @@
 		<!--[if lt IE 9]>
 			<script src="../js/html5shiv.js"></script>
 		<![endif]-->
-		<script type="text/javascript">
-			function juminFocus() {
-				var jumin1 = document.getElementById("jumin1").value;
-				if (jumin1.length ==6) {
-					document.getElementById("jumin2").focus();
-				}//focus() 마우스 커서 옮기겟다
+		<style type="text/css">
+			div {
+				width: 480px; height: 300px;
+				padding-top: 20px;
+				background-size : 100% 100%;
 			}
+			ul {
+				padding:10px; 20px;
+				background-colro: rgba(255,255,255,0.6);
+			}
+			a {
+				text-decoration: none;
+			}
+		</style>
+		<script type="text/javascript" src = "../js/jquery-1.12.4.min.js"></script>
+		<script type="text/javascript">
+			$(function () {
+				$(".item > a").click(function () {
+					var image = $(this).html();
+					$(this).parents("div").css({//부모 태그 중에 ("")인 걸 찾아라
+						"background-image" : "url('"+image+"')"
+					});
+					return false;
+				});
+			});
 		</script>
 	</head>
 		<body>
-			<h1>keyup</h1>
-			<form name="form3" id = "form3">
-				<label> 주민등록번호: </label>
-				<input type ="text" id = "jumin1" name = "jumin1" maxlength="6" onkeyup = "juminFocus()"/>
-				<input type = "text" id = "jumin2" name ="jumin2" maxlength="7" />
-			</form>
+			<div src="" id = "div" width = "400" height = "500">
+				<ul id ="menu">
+					<li class = "item">
+						<a href = "#">../image/1.jpg </a>
+					</li>
+					<li class = "item">
+						<a href = "#">../image/2.jpg </a>
+					</li>
+					<li class = "item">
+						<a href = "#">../image/3.jpg</a>
+					</li>
+				</ul>			
+			</div>
 		</body>
 	</html>

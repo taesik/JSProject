@@ -19,21 +19,12 @@
 		<!--[if lt IE 9]>
 			<script src="../js/html5shiv.js"></script>
 		<![endif]-->
+		<script type="text/javascript" src = "../js/jquery-1.12.4.min.js"></script>
 		<script type="text/javascript">
-			function juminFocus() {
-				var jumin1 = document.getElementById("jumin1").value;
-				if (jumin1.length ==6) {
-					document.getElementById("jumin2").focus();
-				}//focus() 마우스 커서 옮기겟다
-			}
+
 		</script>
 	</head>
 		<body>
-			<h1>keyup</h1>
-			<form name="form3" id = "form3">
-				<label> 주민등록번호: </label>
-				<input type ="text" id = "jumin1" name = "jumin1" maxlength="6" onkeyup = "juminFocus()"/>
-				<input type = "text" id = "jumin2" name ="jumin2" maxlength="7" />
-			</form>
+			
 		</body>
 	</html>

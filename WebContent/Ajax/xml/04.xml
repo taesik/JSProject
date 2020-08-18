@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<school>
+	<subject>
+		<title>나의 하루일과</title>
+		<time>매주 월 금 오전 9시 부터 15시 </time>
+		<teacher>홍길동</teacher>
+	</subject>
+	<subject>
+		<title>HTML5 CSS 반응형 웹</title>
+		<time>매주 화 오후 9시 부터 15시 </time>
+		<teacher>문태식</teacher>
+	</subject>
+	<subject>
+		<title>JAVA</title>
+		<time>매주 목 오후 9시 부터 15시 </time>
+		<teacher>조현수</teacher>
+	</subject>
+</school>

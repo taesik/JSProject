@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<books>
+	<book>
+		<title>aaaa</title>
+		<price>13231</price>
+		<author>ssss</author>
+		<publisher>aaad</publisher>
+	</book>
+	<book>
+		<title>dsfsda</title>
+		<price>13231</price>
+		<author>ssss</author>
+		<publisher>aaad</publisher>
+	</book>
+	<book>
+		<title>asdgfasdgs</title>
+		<price>13231</price>
+		<author>ssss</author>
+		<publisher>aaad</publisher>
+	</book>
+	<book>
+		<title>sdagdsag</title>
+		<price>1161651</price>
+		<author>ssss</author>
+		<publisher>aaad</publisher>
+	</book>
+</books>
