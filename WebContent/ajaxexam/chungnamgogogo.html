@@ -45,13 +45,17 @@
 						$(".console").html(textStatus + " (HTTP-" + shr.status + " / " + errorThrown + ")");
 					}
 				});*/
-				$.get('../ajax/xml/book.xml',function(data) {
-					$(data).find('book').each(function() {
-						var title = $(this).find("title").text();
-						var author = $(this).find("author").text();
-						var price = $(this).find("price").text();
+				$.get('../ajax/xml/chungnam.xml',function(data) {
+					$(data).find('item').each(function() {
+						var local_nm = $(this).find("local_nm").text();
+						var type = $(this).find("type").text();
+						var nm = $(this).find("nm").text();
+						var addr = $(this).find("addr").text();
+						var tel = $(this).find("tel").text();
+						var desc = $(this).find("desc").text();
 						
-						var txt = $("<li>").html(title + " , " + author + ", " + price);
+						var txt = $("<li>").html(local_nm + " , " + type + ", " + nm + ", " + addr
+								+", " + tel + ", " + desc) ;
 						$('#view').append(txt);
 					});
 				}).fail(function (xhr, status, error,responseText) {

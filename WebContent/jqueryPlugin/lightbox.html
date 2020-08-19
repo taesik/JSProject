@@ -11,7 +11,10 @@
 		
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 		<!--viewport : 화면에 보이는 영역을 제어하는 기술. width는 device-width로 설정(브라우저 너비를 장치 너비에 맞추어 표시). initial-scale는 초기비율(보이는 영역과 웹 페이지를 맞춤). user-scalable는 사용자가 화면축소를 하지 못하도록 설정.-->
-      			
+      	
+      	
+      	<link rel = "stylesheet" type="text/css" href ="../css/reset.css"/>			
+		<!-- <link rel = "stylesheet" type="text/css" href ="../css/common.css"/> -->
 		<link rel="shortcut icon" href="../image/icon.png" />
 		<link rel="apple-touch-icon" href="../image/icon.png" />
 				
@@ -20,11 +23,22 @@
 			<script src="../js/html5shiv.js"></script>
 		<![endif]-->
 		<script type="text/javascript" src = "../js/jquery-1.12.4.min.js"></script>
+		<script type="text/javascript" src = "../js/lightbox.js"></script>
+			<link rel = "stylesheet" type="text/css" href ="../css/lightbox.css"/>
 		<script type="text/javascript">
-
 		</script>
 	</head>
 		<body>
-			
+			<h1 class = "title">LightBox ImageViewer </h1>
+			<div class = "example">
+				<a href = "../image/page1.jpg" data-lightbox = "roadtrip" title="도시의 야경">
+				<img src = "../image/page1_thumb.jpg" /> </a>
+			</div>
+			<div class = "example">
+				<a href = "../image/page1.jpg" data-lightbox = "roadtrip" title="도시의 야경"> </a>
+				<a href = "../image/page2.jpg" data-lightbox = "roadtrip" title="초원 위의 집"> </a>
+				<a href = "../image/page3.jpg" data-lightbox = "roadtrip" title="야경"> </a>
+				<img src = "../image/page1_thumb.jpg" /> 
+			</div>
 		</body>
 	</html>

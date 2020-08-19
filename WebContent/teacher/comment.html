@@ -29,6 +29,7 @@
 		
 		<style>
 			*{color:#333;}
+			#item-template{display:none;}
 			ul{list-style:none;}
 			/*페이지 제목을 표현*/
 			h1{
@@ -89,7 +90,7 @@
 			//새로운 글을 화면에 추가하기 위한 함수
 			var num=0;
 			//아래 함수 
-			function addNewItem(num,writer,content,datetime){
+			/*function addNewItem(num,writer,content,datetime){
 				var new_li=$("<li>");
 				new_li.attr("data-num",num);
 				new_li.addClass("comment_item");
@@ -115,7 +116,20 @@
 				new_li.append(writer_p).append(content_p);
 				$("#comment_list").append(new_li);
 			}//addNewItem 함수 종료.
+			*/
 			
+			function template(num, writer,content,datetime) {
+				var $ul = $('#comment_list');
+				//바디에 틀이 만들어져 있을 때 쓰는 메서드
+				var $element = $('#item-template').clone().removeAttr("id");
+				$element.attr("data-num", num);
+				// 속성 : "data-num"
+				$element.find('.item-name').html(writer);
+				$element.find('.item-content').html(content);
+				$element.find('.item-date').html(datetime);
+				
+				$ul.append($element);
+			}
 			function dataReset(){
 				$("#user_name").val("");
 				$("#comment").val("");
@@ -130,11 +144,13 @@
 						var writer= data.comment.item[i].writer;
 						var content= data.comment.item[i].content;
 						var datetime=data.comment.item[i].datetime;
-						addNewItem(num,writer,content,datetime);
+						template(num,writer,content,datetime);
 					}
+					num = data.comment.item[0].num;
 				}).fail(function(){
 					alert("댓글 목록을 불러오는데 실패하였습니다. 잠시후에 다시 시도해 주세요.")
 				});
+				//댓글 내용 저장 이벤트
 			$("#comment_form").submit(function () {
 				if ($("#user_name").val().replace(/\s/g,"")=="") {
 					alert("작성자를 입력");
@@ -152,16 +168,25 @@
 				console.log(num);
 				var writer = $("#user_name").val();
 				var content = $("#comment").val();
-				var datetime = new Date().toLocalString();
+				var datetime = new Date().toLocaleString();
 				
 				//저장 결과를 새로운 목록으로 출력하기 위해서 함수 호출
-				addNewItem(num, writer, content, datetime);
+				//addNewItem(num, writer, content, datetime);
+				template(num, writer, content, datetime);
 				dataReset();
 				return false;
 			
 				});
+				
+				$(document).on("click", ".delete_btn", function () {
+					if (confirm("정말 선택하신 항목을 삭제하겠습니까")) {
+						var target = $(this).parents(".comment_item");
+						target.remove(); //선택 대상과 하위 요소를 삭제.
+						//target.empty(); //선택된 요소의 하위요소들만 제거
+						target.removeClass();
+					}
+				});
 			});
-			
 		</script>
 		
 	</head>
@@ -181,8 +206,18 @@
 						</div>
 					</form>
 				</div>
-				<ul id="comment_list">
-				<!-- 여기에 동적 요소 집어넣기 -->
+				<!--<ul id="comment_list">
+				 여기에 동적 요소 집어넣기
+				</ul> -->
+				<ul id = "comment_list">
+					<li id = "item-template" class = "comment_item">
+						<p class = "writer" >
+							<span class = "item-name"></span>
+							<span class = "item-date"></span>
+							<input type="button" value="삭제하기" class="delete_btn"/>
+						</p>
+						<p class="item-content"> </p>
+					</li>		
 				</ul>
 		</div>
 	</body>
