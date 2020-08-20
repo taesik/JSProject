@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		 <meta charset="UTF-8">
+      <meta http-equiv="Content-Type" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+      <!--viewport : 화면에 보이는 영역에 제어하는 기술. width는 device-width로 설정. initial는 초기비율, user-scalable는 사용자가 화면축소를 하지 못하도록 설정.-->
+      
+      <title>Insert title here</title>
+      
+      
+      <!-- 모바일 웹 페이지 설정 -->
+      <link rel="shortcut icon" href="../image/icon.png" />
+      <link rel="apple-touch-icon" href="../image/icon.png" />
+      <!-- 모바일 웹 페이지 설정 끝 -->
+      <!--  <link rel="stylesheet" type="text/css" href="../css/reset.css"/>-->
+      <link rel="stylesheet" type="text/css" href="../css/navigation.css"/>
+      <script type="text/javascript" src="../js/jquery-1.12.4.min.js"></script>
+      <!--[if lt IE 9]>
+      <script src="../js/html5shiv.js"></script>
+      <![endif]-->
+      <script type="text/javascript" src="../js/jquery.slides.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/map.css"/>		
+		<script type="text/javascript">
+			function initMap() {
+				var map = new google.maps.Map(document.getElementById('map'), {
+					center: {lat:37.562275, lng: 127.03514},
+					
+					scrollwheel: false,
+					zoom: 8
+				});
+			}
+		</script>
+		
+		<script type="text/javascript"
+		 src="https://googleapis.com/maps/api/js?key=각자 사용자 키&callback=initMap"
+		async defer>
+		
+		</script>
+		
+	</head>
+		<body>
+			<header>
+				<h1> My site</h1>
+				<nav>
+					<span><a href="#">Home</a></span>
+					<span><a href="#">About</a></span>
+					<span><a href="#">Contact Us</a></span>
+				</nav>
+			</header>
+			<div id="main">
+				<figure class="banner">
+					<div class="figure_header">
+						<h2 >ㅁㄴ옴니ㅗ림놇</h2>
+						<p>Errort rororoororo  </p>	
+					</div>
+				</figure>	
+				<section>
+					<article>
+						<p>sakfhadsklghlashglasfhlgbvhaslkbhgvfdj </p>
+						<div id ="map"><br>&nbsp;map area</div>
+					</article>
+					<aside>
+						<form>
+							<fieldset>
+								<legend>Send us Email</legend>
+								<div class="form-group" >
+									<label for = "receiveName">receiveName</label>
+									<input type="text" id="receiveName" name= "receiveName">
+								</div>
+								<div class="form-group" >
+									<label for = "receiveEmail">receiveEmail</label>
+									<input type="email" id="receiveEmail" name= "receiveEmail">
+								</div>
+								<div class="form-group" >
+									<label for = "sendName">sendNAme</label>
+									<input type="text" id="sendName" name= "sendName">
+								</div>
+								<div class="form-group" >
+									<label for = "sendEmail">sendEmail</label>
+									<input type="email" id="sendEmail" name= "sendEmail">
+								</div>
+								<div class="form-group" >
+									<label for = "subject">subject</label>
+									<input type="text" id="subject" name= "subject">
+								</div>
+								<div class="form-group" >
+									<label for = "msg">Message</label>
+									<textarea name="msg" id="msg" cols="30" rows="3"> </textarea>
+								</div>
+								<div class="form-group" >
+									<button type="button">SEND </button>
+								</div>
+							</fieldset>
+						</form>
+					</aside>
+				</section>
+			</div>
+		</body>
+	</html>

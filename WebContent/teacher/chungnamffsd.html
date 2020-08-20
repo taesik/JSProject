@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		 <meta charset="UTF-8">
+      <meta http-equiv="Content-Type" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+      <!--viewport : 화면에 보이는 영역에 제어하는 기술. width는 device-width로 설정. initial는 초기비율, user-scalable는 사용자가 화면축소를 하지 못하도록 설정.-->
+      
+      <title>Insert title here</title>
+      
+      
+      <!-- 모바일 웹 페이지 설정 -->
+      <link rel="shortcut icon" href="../image/icon.png" />
+      <link rel="apple-touch-icon" href="../image/icon.png" />
+      <!-- 모바일 웹 페이지 설정 끝 -->
+      <link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+      <link rel="stylesheet" type="text/css" href="../css/navigation.css"/>
+      <script type="text/javascript" src="../js/jquery-1.12.4.min.js"></script>
+      <!--[if lt IE 9]>
+      <script src="../js/html5shiv.js"></script>
+      <![endif]-->
+      <script type="text/javascript" src="../js/jquery.slides.min.js"></script>
+		<script type="text/javascript">
+			$(function () {
+				function template(local_nm,nm,nm_sub,desc,list_img) {
+					var $ul = $('#view');
+					
+					var $element = $('#item-template').clone().removeAttr('id');
+					$element.find('.item-image').attr("href", list_img);
+					$element.find('.item-').attr("href", list_img);
+				}
+			})
+		
+		</script>	
+	</head>
+		<body>
+			<h1 class>충남관광 - 관광명소</h1>
+		</body>
+	</html>

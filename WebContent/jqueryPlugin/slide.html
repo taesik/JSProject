@@ -1,0 +1,74 @@
+<!DOCTYPE html><!-- 문서 유형 : 현재 웹 문서가 어떤 HTML 버전에 맞게 작성되었는지를 알려준다. -->
+
+<!--<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+     DTD 선언문이 HTML 페이지의 가장 첫 라인에 명시되어야 웹 브라우저가 HTML 버전을 인식.
+     HTML태그나 CSS를 해당 버전에 맞도록 처리하므로 웹 표준 준수를 위하여 반드시 명시되어야 한다.-->
+<html lang="ko">
+
+   <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="Content-Type" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+      <!--viewport : 화면에 보이는 영역에 제어하는 기술. width는 device-width로 설정. initial는 초기비율, user-scalable는 사용자가 화면축소를 하지 못하도록 설정.-->
+      
+      <title>Insert title here</title>
+      
+      
+      <!-- 모바일 웹 페이지 설정 -->
+      <link rel="shortcut icon" href="../image/icon.png" />
+      <link rel="apple-touch-icon" href="../image/icon.png" />
+      <!-- 모바일 웹 페이지 설정 끝 -->
+      <link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+      <link rel="stylesheet" type="text/css" href="../css/navigation.css"/>
+      <script type="text/javascript" src="../js/jquery-1.12.4.min.js"></script>
+      <!--[if lt IE 9]>
+      <script src="../js/html5shiv.js"></script>
+      <![endif]-->
+      <script type="text/javascript" src="../js/jquery.slides.min.js"></script>
+      
+      <script>
+         $(function(){
+            $("#slides").slidesjs({
+               width:800,
+               height:300,
+               play : {
+            	   active: true ,//play/stop 버튼 표시여부
+            	   auto: true, //자동재생
+            	   interval: 2000, //슬라이드 재생 간격
+            	   swap: true,//play stop 버튼 상황에 따라 표시 false는 play stop 버튼 항상 표시
+            	   effect: "slide"//효과제어 slide or fade 선택
+               },
+            	navigation: {
+            		active:true, //버튼의 표시여부 설정
+            		effect:"slide" //버튼 클릭시 적용될 효과
+            	},
+            	//현재 위치에 대한 표시 여부와 클릭했을 경우의 효과 제어
+            	pagination:{
+            		active:true,
+            		effect:"fade"
+            	},
+            	//버튼 클릭시 적용될 효과에 대한 ㅈ제어
+            	effect:{
+            		slide: {
+            			speed: 2000
+            		},
+            		fade: {
+            			speed: 3000
+            		}
+            	}
+            });
+         });
+      </script>
+   </head>
+   <body>
+      <h1 class="title">Image Slider (1)</h1>
+      <div class="example">
+         <div id="slides">
+            <img src="../image/slide-1.jpg" />
+            <img src="../image/slide-2.jpg" />
+            <img src="../image/slide-3.jpg" />
+            <img src="../image/slide-4.jpg" />
+         </div>
+      </div>
+   </body>
+</html>
